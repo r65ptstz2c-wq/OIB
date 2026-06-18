@@ -1,0 +1,88 @@
+class Transport:
+    pass
+ 
+ 
+# --- Водный транспорт ---
+class WaterTransport(Transport):
+    pass
+ 
+class Ship(WaterTransport):
+    pass
+ 
+class Boat(WaterTransport):
+    pass
+ 
+class Submarine(WaterTransport):
+    pass
+ 
+ 
+# --- Воздушный транспорт ---
+class AirTransport(Transport):
+    pass
+ 
+class Aviation(AirTransport):          # авиация
+    pass
+ 
+class Airplane(Aviation):
+    pass
+ 
+class Helicopter(Aviation):
+    pass
+ 
+class Aeronautics(AirTransport):       # воздухоплавание
+    pass
+ 
+class Airship(Aeronautics):            # дирижабль
+    pass
+ 
+class Balloon(Aeronautics):            # воздушный шар
+    pass
+ 
+ 
+# --- Наземный транспорт ---
+class GroundTransport(Transport):
+    pass
+ 
+class RailTransport(GroundTransport):  # железнодорожный
+    pass
+ 
+class Train(RailTransport):
+    pass
+ 
+class Tram(RailTransport):
+    pass
+ 
+class RoadTransport(GroundTransport):  # автомобильный
+    pass
+ 
+class Car(RoadTransport):
+    pass
+ 
+class Bus(RoadTransport):
+    pass
+ 
+class Truck(RoadTransport):
+    pass
+ 
+class CycleTransport(GroundTransport): # велосипедный
+    pass
+ 
+class Bicycle(CycleTransport):
+    pass
+ 
+class AnimalDriven(GroundTransport):   # движимый животными
+    pass
+ 
+class Carriage(AnimalDriven):
+    pass
+ 
+ 
+# --- Космический транспорт ---
+class SpaceTransport(Transport):
+    pass
+ 
+class Rocket(SpaceTransport):
+    pass
+ 
+class SpaceShuttle(SpaceTransport):
+    pass

@@ -14,4 +14,3 @@ class User:
         if self.__password == old_password:
             self.__password = new_password
             return True
-        return False

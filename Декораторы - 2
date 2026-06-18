@@ -1,0 +1,16 @@
+def check_password(func):
+    def wrapper(*args, **kwargs):
+        password = input("Введите пароль: ")
+        if password != "qwerty":
+            print("В доступе отказано")
+            return None
+        return func(*args, **kwargs)
+    return wrapper
+ 
+ 
+@check_password
+def fib(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a

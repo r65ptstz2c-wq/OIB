@@ -1,0 +1,34 @@
+class LivingBeing:          # Живые существа
+    pass
+ 
+ 
+class Acellularia(LivingBeing):   # Бесклеточные (вирусы)
+    pass
+ 
+ 
+class Cellularia(LivingBeing):    # Клеточные
+    pass
+ 
+ 
+class Prokaryota(Cellularia):     # Прокариоты (бактерии)
+    pass
+ 
+ 
+class Eukaryota(Cellularia):      # Эукариоты
+    pass
+ 
+ 
+class Unicellularia(Eukaryota):   # Одноклеточные
+    pass
+ 
+ 
+class Fungi(Eukaryota):           # Грибы
+    pass
+ 
+ 
+class Plantae(Eukaryota):         # Растения
+    pass
+ 
+ 
+class Animalia(Eukaryota):        # Животные
+    pass

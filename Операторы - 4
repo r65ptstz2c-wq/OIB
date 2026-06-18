@@ -1,0 +1,11 @@
+class Date:
+    def __init__(self, month, day):
+        self.month = month
+        self.day = day
+
+    def _day_of_year(self):
+        days_in_month = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        return sum(days_in_month[:self.month]) + self.day
+
+    def __sub__(self, other):
+        return self._day_of_year() - other._day_of_year()

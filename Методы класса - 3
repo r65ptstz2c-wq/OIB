@@ -1,0 +1,15 @@
+class User:
+    _count = 0
+ 
+    def __init__(self, id: int, name: str):
+        self.id = id
+        self.name = name
+ 
+    @classmethod
+    def create(cls, name: str) -> "User":
+        cls._count += 1
+        return cls(cls._count, name)
+ 
+    @classmethod
+    def count(cls) -> int:
+        return cls._count

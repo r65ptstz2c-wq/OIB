@@ -1,0 +1,52 @@
+class LeftParagraph:
+    def __init__(self, width):
+        self.width = width
+        self.lines = []
+        self.current = []
+
+    def add_word(self, word):
+        if not self.current:
+            self.current.append(word)
+        else:
+            new_len = len(' '.join(self.current)) + 1 + len(word)
+            if new_len <= self.width:
+                self.current.append(word)
+            else:
+                self.lines.append(' '.join(self.current))
+                self.current = [word]
+
+    def end(self):
+        if self.current:
+            self.lines.append(' '.join(self.current))
+            self.current = []
+        for line in self.lines:
+            print(line)
+        self.lines = []
+
+
+class RightParagraph:
+    def __init__(self, width):
+        self.width = width
+        self.lines = []
+        self.current = []
+
+    def add_word(self, word):
+        if not self.current:
+            self.current.append(word)
+        else:
+            new_len = len(' '.join(self.current)) + 1 + len(word)
+            if new_len <= self.width:
+                self.current.append(word)
+            else:
+                line = ' '.join(self.current)
+                self.lines.append(line.rjust(self.width))
+                self.current = [word]
+
+    def end(self):
+        if self.current:
+            line = ' '.join(self.current)
+            self.lines.append(line.rjust(self.width))
+            self.current = []
+        for line in self.lines:
+            print(line)
+        self.lines = []

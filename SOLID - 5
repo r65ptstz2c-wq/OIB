@@ -1,0 +1,29 @@
+rom abc import ABC, abstractmethod
+ 
+class Notifier(ABC):
+    @abstractmethod
+    def send(self, to: str, text: str) -> None: ...
+ 
+class EmailNotifier(Notifier):
+    def send(self, to, text): print(f"[EMAIL to={to}] {text}")
+ 
+class SmsNotifier(Notifier):
+    def send(self, to, text): print(f"[SMS to={to}] {text}")
+ 
+class PushNotifier(Notifier):
+    def send(self, to, text): print(f"[PUSH to={to}] {text}")
+ 
+class FakeNotifier(Notifier):
+    def __init__(self): self.sent = []
+    def send(self, to, text): self.sent.append((to, text))
+ 
+class NotificationService:
+    def __init__(self, notifiers: list[Notifier]):
+        self._notifiers = notifiers
+ 
+    def notify(self, to: str, text: str) -> None:
+        for n in self._notifiers:
+            n.send(to, text)
+ 
+service = NotificationService([EmailNotifier(), SmsNotifier(), PushNotifier()])
+service.notify("user@x.com", "Hi")

@@ -1,0 +1,16 @@
+ef check_password(password):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            entered = input("Введите пароль: ")
+            if entered != password:
+                print("В доступе отказано")
+                return None
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+ 
+ 
+@check_password("password")
+def make_burger(type_of_meat, with_onion=False, with_tomato=True):
+    # ...
+    return f"Бургер: {type_of_meat}"

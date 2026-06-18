@@ -1,0 +1,23 @@
+class A:
+    def __str__(self):
+        return "A.__str__ method"
+ 
+    def hello(self):
+        print("Hello")
+ 
+ 
+class B:
+    def __str__(self):
+        return "B.__str__ method"
+ 
+    def good_evening(self):
+        print("Good evening")
+ 
+ 
+# Порядок предков задаёт, чей __str__ берётся через MRO.
+class C(A, B):   # __str__ -> A
+    pass
+ 
+ 
+class D(B, A):   # __str__ -> B
+    pass

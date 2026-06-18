@@ -1,0 +1,19 @@
+import math
+ 
+class Point:
+    def __init__(self, x: float, y: float):
+        self.x = float(x)
+        self.y = float(y)
+ 
+    @classmethod
+    def from_string(cls, s: str) -> "Point":
+        x, y = s.split(",")
+        return cls(float(x.strip()), float(y.strip()))
+ 
+    @classmethod
+    def from_dict(cls, d: dict) -> "Point":
+        return cls(float(d["x"]), float(d["y"]))
+ 
+    @staticmethod
+    def distance(a: "Point", b: "Point") -> float:
+        return round(math.hypot(a.x - b.x, a.y - b.y), 2)

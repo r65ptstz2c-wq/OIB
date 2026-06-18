@@ -1,0 +1,18 @@
+class Polynomial:
+    def __init__(self, coefficients):
+        self.coeff = coefficients[:]
+
+    def __call__(self, x):
+        result = 0
+        for i, c in enumerate(self.coeff):
+            result += c * (x ** i)
+        return result
+
+    def __add__(self, other):
+        a = self.coeff[:]
+        b = other.coeff[:]
+        if len(a) < len(b):
+            a += [0] * (len(b) - len(a))
+        elif len(b) < len(a):
+            b += [0] * (len(a) - len(b))
+        return Polynomial([a[i] + b[i] for i in range(len(a))])

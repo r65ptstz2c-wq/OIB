@@ -1,0 +1,34 @@
+class Shape:                                   # Фигура
+    pass
+ 
+ 
+class Polygon(Shape):                          # Многоугольник
+    pass
+ 
+ 
+class Triangle(Polygon):                       # Треугольник
+    pass
+ 
+ 
+class IsoscelesTriangle(Triangle):             # Равнобедренный
+    pass
+ 
+ 
+class EquilateralTriangle(IsoscelesTriangle):  # Равносторонний
+    pass
+ 
+ 
+class Quadrilateral(Polygon):                  # Четырёхугольник
+    pass
+ 
+ 
+class Parallelogram(Quadrilateral):            # Параллелограмм
+    pass
+ 
+ 
+class Rectangle(Parallelogram):                # Прямоугольник
+    pass
+ 
+ 
+class Square(Rectangle):                        # Квадрат
+    pass

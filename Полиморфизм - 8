@@ -1,0 +1,41 @@
+class Person:
+    def __init__(self, name, patronymic, surname, phones):
+        self.name = name
+        self.patronymic = patronymic
+        self.surname = surname
+        self.phones = phones
+
+    def get_phone(self):
+        return self.phones.get('private', None)
+
+    def get_name(self):
+        return f"{self.surname} {self.name} {self.patronymic}"
+
+    def get_work_phone(self):
+        return self.phones.get('work', None)
+
+    def get_sms_text(self):
+        return f"Уважаемый {self.name} {self.patronymic}! Примите участие в нашем беспроигрышном конкурсе для физических лиц"
+
+
+class Company:
+    def __init__(self, name, company_type, phones, *workers):
+        self.name = name
+        self.company_type = company_type
+        self.phones = phones
+        self.workers = workers
+
+    def get_phone(self):
+        if 'contact' in self.phones:
+            return self.phones['contact']
+        for worker in self.workers:
+            phone = worker.get_work_phone()
+            if phone is not None:
+                return phone
+        return None
+
+    def get_name(self):
+        return self.name
+
+    def get_sms_text(self):
+        return f"Для компании {self.name} есть супер предложение! Примите участие в нашем беспроигрышном конкурсе для {self.company_type}"

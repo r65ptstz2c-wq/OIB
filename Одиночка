@@ -1,0 +1,27 @@
+class GameSettings:
+    _instance = None   # сюда сохраняется единственный экземпляр
+ 
+    def __init__(self):
+        self.volume = 50
+        self.difficulty = "Normal"
+ 
+    @classmethod
+    def get_instance(cls):
+        # создаём объект только при первом вызове,
+        # дальше всегда возвращаем уже готовый
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+ 
+ 
+# --- Клиентский код ---
+settings1 = GameSettings.get_instance()
+settings2 = GameSettings.get_instance()
+ 
+print(settings1 is settings2)   # True — это один и тот же объект
+ 
+settings1.volume = 70
+settings1.difficulty = "Hard"
+ 
+print(settings2.volume)        
+print(settings2.difficulty)    

@@ -1,0 +1,105 @@
+from abc import ABC, abstractmethod
+ 
+ 
+# --- Реализация (Implementor): интерфейс устройства ---
+class Device(ABC):
+    @abstractmethod
+    def turn_on(self): ...
+ 
+    @abstractmethod
+    def turn_off(self): ...
+ 
+    @abstractmethod
+    def set_state(self, state): ...
+ 
+ 
+# --- Промежуточные классы по типу устройства ---
+class TV(Device):
+    brand = "TV"
+ 
+    def turn_on(self):
+        print(f"{self.brand} TV: включён")
+ 
+    def turn_off(self):
+        print(f"{self.brand} TV: выключен")
+ 
+    def set_state(self, state):
+        print(f"{self.brand} TV: канал переключён на {state}")
+ 
+ 
+class Light(Device):
+    brand = "Light"
+ 
+    def turn_on(self):
+        print(f"{self.brand} лампочка: включена")
+ 
+    def turn_off(self):
+        print(f"{self.brand} лампочка: выключена")
+ 
+    def set_state(self, state):
+        print(f"{self.brand} лампочка: яркость {state}")
+ 
+ 
+# --- Конкретные реализации по производителю ---
+class SonyTV(TV):
+    brand = "Sony"
+ 
+ 
+class SamsungTV(TV):
+    brand = "Samsung"
+ 
+ 
+class PhilipsLight(Light):
+    brand = "Philips"
+ 
+ 
+class IKEALight(Light):
+    brand = "IKEA"
+ 
+ 
+# --- Абстракция (Abstraction): пульт, работающий с любым устройством ---
+class RemoteControl:
+    def __init__(self, device):
+        self.device = device      # «мост» к реализации
+ 
+    def turn_on(self):
+        self.device.turn_on()
+ 
+    def turn_off(self):
+        self.device.turn_off()
+ 
+    def set_state(self, state):
+        self.device.set_state(state)
+ 
+ 
+# --- Клиентский код ---
+def main():
+    sony_tv = SonyTV()
+    samsung_tv = SamsungTV()
+    philips_light = PhilipsLight()
+    ikea_light = IKEALight()
+ 
+    remote_for_sony = RemoteControl(sony_tv)
+    remote_for_samsung = RemoteControl(samsung_tv)
+    remote_for_philips = RemoteControl(philips_light)
+    remote_for_ikea = RemoteControl(ikea_light)
+ 
+    remote_for_sony.turn_on()
+    remote_for_sony.set_state("HBO")
+    remote_for_sony.turn_off()
+ 
+    remote_for_samsung.turn_on()
+    remote_for_samsung.set_state("CNN")
+    remote_for_samsung.turn_off()
+ 
+    remote_for_philips.turn_on()
+    remote_for_philips.set_state("75%")
+    remote_for_philips.turn_off()
+ 
+    remote_for_ikea.turn_on()
+    remote_for_ikea.set_state("50%")
+    remote_for_ikea.turn_off()
+ 
+ 
+if __name__ == "__main__":
+    main()

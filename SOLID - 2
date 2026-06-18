@@ -1,0 +1,25 @@
+from dataclasses import dataclass
+from abc import ABC, abstractmethod
+ 
+@dataclass
+class Order:
+    total: float
+ 
+class Discount(ABC):
+    @abstractmethod
+    def apply(self, total: float) -> float: ...
+ 
+class RegularDiscount(Discount):
+    def apply(self, total): return total
+ 
+class VipDiscount(Discount):
+    def apply(self, total): return total * 0.9
+ 
+class EmployeeDiscount(Discount):
+    def apply(self, total): return total * 0.8
+ 
+class BlackFridayDiscount(Discount):
+    def apply(self, total): return total * 0.5
+ 
+def apply_discount(order: Order, discount: Discount) -> float:
+    return discount.apply(order.total)

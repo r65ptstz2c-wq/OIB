@@ -1,0 +1,31 @@
+rom abc import ABC, abstractmethod
+ 
+class Rectangle:
+    def __init__(self, w: int, h: int):
+        self._w = w
+        self._h = h
+ 
+    @property
+    def width(self) -> int:
+        return self._w
+ 
+    @property
+    def height(self) -> int:
+        return self._h
+ 
+    def area(self) -> int:
+        return self._w * self._h
+ 
+class Square:
+    def __init__(self, side: int):
+        self._side = side
+ 
+    @property
+    def side(self) -> int:
+        return self._side
+ 
+    def area(self) -> int:
+        return self._side ** 2
+ 
+def build_and_get_area(w: int, h: int) -> int:
+    return Rectangle(w, h).area()

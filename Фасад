@@ -1,0 +1,167 @@
+# --- Подсистемы со своими "сложными" API ---
+class LightingSystem:
+    def __init__(self):
+        self.is_on = False
+        self.brightness = 0
+ 
+    def turn_on(self):
+        self.is_on = True
+        self.brightness = 100
+        return "Свет включён (яркость 100%)"
+ 
+    def turn_off(self):
+        self.is_on = False
+        self.brightness = 0
+        return "Свет выключен"
+ 
+    def dim(self, level=30):
+        self.is_on = True
+        self.brightness = level
+        return f"Свет приглушён (яркость {level}%)"
+ 
+    def status(self):
+        if self.is_on:
+            return f"Освещение: вкл, яркость {self.brightness}%"
+        return "Освещение: выкл"
+ 
+ 
+class ClimateSystem:
+    def __init__(self):
+        self.temperature = 20
+        self.mode = "обычный"
+ 
+    def set_temperature(self, temp):
+        self.temperature = temp
+        return f"Температура установлена на {temp}°C"
+ 
+    def set_mode(self, mode):
+        self.mode = mode
+        return f"Климат-режим: {mode}"
+ 
+    def status(self):
+        return f"Климат: {self.temperature}°C, режим «{self.mode}»"
+ 
+ 
+class SecuritySystem:
+    def __init__(self):
+        self.armed = False
+ 
+    def arm(self):
+        self.armed = True
+        return "Сигнализация включена"
+ 
+    def disarm(self):
+        self.armed = False
+        return "Сигнализация отключена"
+ 
+    def status(self):
+        if self.armed:
+            return "Безопасность: на охране"
+        return "Безопасность: снято с охраны"
+ 
+ 
+class MultimediaSystem:
+    def __init__(self):
+        self.playing = False
+        self.track = None
+ 
+    def play_music(self, track="Плейлист"):
+        self.playing = True
+        self.track = track
+        return f"Играет музыка: {track}"
+ 
+    def turn_off(self):
+        self.playing = False
+        self.track = None
+        return "Мультимедиа выключено"
+ 
+    def status(self):
+        if self.playing:
+            return f"Мультимедиа: играет «{self.track}»"
+        return "Мультимедиа: выкл"
+ 
+ 
+# --- Фасад: единый простой интерфейс над всеми подсистемами ---
+class SmartHomeFacade:
+    def __init__(self):
+        self.lighting = LightingSystem()
+        self.climate = ClimateSystem()
+        self.security = SecuritySystem()
+        self.multimedia = MultimediaSystem()
+ 
+    def home_mode(self):            # «Я дома»
+        return [
+            self.lighting.turn_on(),
+            self.climate.set_temperature(22),
+            self.security.disarm(),
+        ]
+ 
+    def away_mode(self):            # «Я ухожу»
+        return [
+            self.lighting.turn_off(),
+            self.multimedia.turn_off(),
+            self.security.arm(),
+        ]
+ 
+    def party_mode(self):           # «Вечеринка»
+        return [
+            self.lighting.dim(40),
+            self.multimedia.play_music("Party Mix"),
+            self.climate.set_mode("вечеринка"),
+            self.climate.set_temperature(20),
+        ]
+ 
+    def night_mode(self):           # «Ночь»
+        return [
+            self.lighting.turn_off(),
+            self.climate.set_temperature(18),
+            self.security.arm(),
+        ]
+ 
+    def get_all_systems_status(self):
+        return "\n".join([
+            self.lighting.status(),
+            self.climate.status(),
+            self.security.status(),
+            self.multimedia.status(),
+        ])
+ 
+ 
+# --- Клиентский код ---
+def main():
+    print("=== Тестирование паттерна Фасад для умного дома ===")
+ 
+    smart_home = SmartHomeFacade()
+ 
+    print("\n1. Начальное состояние всех систем:")
+    print(smart_home.get_all_systems_status())
+ 
+    print("\n2. Активация режима 'Я дома':")
+    for result in smart_home.home_mode():
+        print(f" - {result}")
+    print("\n   Состояние систем после активации режима 'Я дома':")
+    print(smart_home.get_all_systems_status())
+ 
+    print("\n3. Активация режима 'Вечеринка':")
+    for result in smart_home.party_mode():
+        print(f" - {result}")
+    print("\n   Состояние систем после активации режима 'Вечеринка':")
+    print(smart_home.get_all_systems_status())
+ 
+    print("\n4. Активация режима 'Ночь':")
+    for result in smart_home.night_mode():
+        print(f" - {result}")
+    print("\n   Состояние систем после активации режима 'Ночь':")
+    print(smart_home.get_all_systems_status())
+ 
+    print("\n5. Активация режима 'Я ухожу':")
+    for result in smart_home.away_mode():
+        print(f" - {result}")
+    print("\n   Состояние систем после активации режима 'Я ухожу':")
+    print(smart_home.get_all_systems_status())
+ 
+    print("\n=== Тестирование завершено ===")
+ 
+ 
+if __name__ == "__main__":
+    main()

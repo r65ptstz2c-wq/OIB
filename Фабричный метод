@@ -1,0 +1,62 @@
+From abc import ABC, abstractmethod
+ 
+ 
+# 1. Абстрактное животное
+class Animal(ABC):
+    @abstractmethod
+    def make_sound(self):
+        ...
+ 
+ 
+# 2. Конкретные животные со своим звуком
+class Lion(Animal):
+    def make_sound(self):
+        return "Рычание!"
+ 
+ 
+class Monkey(Animal):
+    def make_sound(self):
+        return "Визг!"
+ 
+ 
+class Elephant(Animal):
+    def make_sound(self):
+        return "Трубление!"
+ 
+ 
+# 3. Абстрактная фабрика с фабричным методом
+class AnimalFactory(ABC):
+    @abstractmethod
+    def create_animal(self):
+        ...
+ 
+ 
+# 4. Конкретные фабрики — каждая создаёт своё животное
+class LionFactory(AnimalFactory):
+    def create_animal(self):
+        return Lion()
+ 
+ 
+class MonkeyFactory(AnimalFactory):
+    def create_animal(self):
+        return Monkey()
+ 
+ 
+class ElephantFactory(AnimalFactory):
+    def create_animal(self):
+        return Elephant()
+ 
+ 
+# 5. Клиентский код работает с фабрикой, не зная конкретного класса
+def interact_with_animal(factory):
+    animal = factory.create_animal()
+    print("Звук:", animal.make_sound())
+ 
+ 
+lion_factory = LionFactory()
+monkey_factory = MonkeyFactory()
+elephant_factory = ElephantFactory()
+ 
+interact_with_animal(lion_factory)      # Звук: Рычание!
+interact_with_animal(monkey_factory)    # Звук: Визг!
+interact_with_animal(elephant_factory)  # Звук: Трубление!

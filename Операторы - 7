@@ -16,4 +16,3 @@ class Polynomial:
         elif len(b) < len(a):
             b += [0] * (len(a) - len(b))
         return Polynomial([a[i] + b[i] for i in range(len(a))])
-цуу

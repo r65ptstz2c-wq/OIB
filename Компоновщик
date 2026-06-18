@@ -1,0 +1,66 @@
+from abc import ABC, abstractmethod
+ 
+ 
+# --- Общий интерфейс для файлов и директорий ---
+class FileSystemElement(ABC):
+    @abstractmethod
+    def display(self, indent=0): ...
+ 
+    @abstractmethod
+    def get_size(self): ...
+ 
+ 
+# --- Лист: файл (не содержит других элементов) ---
+class File(FileSystemElement):
+    def __init__(self, name, size):
+        self.name = name
+        self.size = size
+ 
+    def display(self, indent=0):
+        print(" " * indent + f"{self.name} ({self.size} bytes)")
+ 
+    def get_size(self):
+        return self.size
+ 
+ 
+# --- Контейнер: директория (хранит файлы и другие директории) ---
+class Directory(FileSystemElement):
+    def __init__(self, name):
+        self.name = name
+        self.children = []
+ 
+    def add(self, element):
+        self.children.append(element)
+ 
+    def display(self, indent=0):
+        print(" " * indent + f"{self.name}/")
+        for child in self.children:
+            child.display(indent + 4)   # рекурсивный обход вложенных элементов
+ 
+    def get_size(self):
+        # размер директории = сумма размеров всех её элементов
+        return sum(child.get_size() for child in self.children)
+ 
+ 
+# --- Клиентский код ---
+def main():
+    root = Directory("root")
+    home = Directory("home")
+    user = Directory("user")
+ 
+    file1 = File("file1.txt", 100)
+    file2 = File("file2.txt", 200)
+    file3 = File("file3.txt", 300)
+ 
+    root.add(home)
+    home.add(user)
+    user.add(file1)
+    user.add(file2)
+    root.add(file3)
+ 
+    root.display()
+    print(f"\nTotal size: {root.get_size()} bytes")
+ 
+ 
+if __name__ == "__main__":
+    main()

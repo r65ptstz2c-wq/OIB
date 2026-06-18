@@ -1,0 +1,123 @@
+from abc import ABC, abstractmethod
+ 
+ 
+# --- Компоненты автомобиля ---
+class Engine:
+    def __init__(self, type_):
+        self.type = type_
+ 
+    def __str__(self):
+        return self.type
+ 
+ 
+class Transmission:
+    def __init__(self, type_):
+        self.type = type_
+ 
+    def __str__(self):
+        return self.type
+ 
+ 
+class Body:
+    def __init__(self, type_):
+        self.type = type_
+ 
+    def __str__(self):
+        return self.type
+ 
+ 
+# --- Продукт, который собираем ---
+class Car:
+    def __init__(self):
+        self.body = None
+        self.engine = None
+        self.transmission = None
+        self.color = None
+ 
+    def __str__(self):
+        return (f"кузов: {self.body}, двигатель: {self.engine}, "
+                f"КПП: {self.transmission}, цвет: {self.color}")
+ 
+ 
+# --- Абстрактный строитель: задаёт шаги сборки ---
+class CarBuilder(ABC):
+    def __init__(self):
+        self.car = Car()
+ 
+    @abstractmethod
+    def set_body(self): ...
+ 
+    @abstractmethod
+    def set_engine(self): ...
+ 
+    @abstractmethod
+    def set_transmission(self): ...
+ 
+    @abstractmethod
+    def set_color(self): ...
+ 
+    def get_car(self):
+        return self.car
+ 
+ 
+# --- Конкретные строители: чем заполнять каждый шаг ---
+class SedanBuilder(CarBuilder):
+    def set_body(self):
+        self.car.body = Body("седан")
+ 
+    def set_engine(self):
+        self.car.engine = Engine("бензиновый 2.0")
+ 
+    def set_transmission(self):
+        self.car.transmission = Transmission("автомат")
+ 
+    def set_color(self):
+        self.car.color = "чёрный"
+ 
+ 
+class SUVBuilder(CarBuilder):
+    def set_body(self):
+        self.car.body = Body("внедорожник")
+ 
+    def set_engine(self):
+        self.car.engine = Engine("дизельный 3.0")
+ 
+    def set_transmission(self):
+        self.car.transmission = Transmission("полный привод, автомат")
+ 
+    def set_color(self):
+        self.car.color = "серый"
+ 
+ 
+class SportsCarBuilder(CarBuilder):
+    def set_body(self):
+        self.car.body = Body("купе")
+ 
+    def set_engine(self):
+        self.car.engine = Engine("V8 турбо")
+ 
+    def set_transmission(self):
+        self.car.transmission = Transmission("робот, 7 ступеней")
+ 
+    def set_color(self):
+        self.car.color = "красный"
+ 
+ 
+# --- Директор: знает порядок шагов сборки ---
+class CarDirector:
+    def __init__(self, builder):
+        self.builder = builder
+ 
+    def construct_car(self):
+        self.builder.set_body()
+        self.builder.set_engine()
+        self.builder.set_transmission()
+        self.builder.set_color()
+        return self.builder.get_car()
+ 
+ 
+# --- Клиентский код ---
+sedan_builder = SedanBuilder()
+director = CarDirector(sedan_builder)
+sedan = director.construct_car()
+print("Создан седан:", sedan)
